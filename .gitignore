@@ -1,0 +1,12 @@
+/apps/
+/bin/
+/target/
+/tools/
+/classes/
+/deploy/
+/output/
+/test-output/
+/.settings/
+.classpath
+.project
+transaction.log

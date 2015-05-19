@@ -18,16 +18,13 @@ import java.io.File;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLClassLoader;
 import java.util.*;
 
 /**
- * @author Boris
+ * @author Kobi Kisos
  * @since 10.2.0
  * @see SGTestTestsGenerator
- * Maven plugin which is used to get TGRID tests metadata by scanning permutation files and extracting annotations from test classes.
+ * Generate SGTests tests metadata by scanning all test methods and extracting annotations from test classes.
  */
 @SuppressWarnings({"UnusedDeclaration"})
 @Mojo(name = "tests", defaultPhase = LifecyclePhase.TEST, threadSafe = true, requiresDependencyResolution = ResolutionScope.TEST)

@@ -13,9 +13,9 @@ import java.lang.reflect.Method;
 import java.util.*;
 
 /**
- * @author Boris
+ * @author Kobi Kisos
  * @since 10.2.0
- * Generate TGRID tests metadata by scanning permutation files and extracting annotations from test classes.
+ * Generate SGTests tests metadata by scanning all test methods and extracting annotations from test classes.
  * The output is JSON formed.
  */
 public class SGTestTestsGenerator {
