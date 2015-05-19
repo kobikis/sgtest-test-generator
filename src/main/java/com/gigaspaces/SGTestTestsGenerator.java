@@ -11,6 +11,7 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.*;
+import java.util.concurrent.Exchanger;
 
 /**
  * @author Kobi Kisos
@@ -35,6 +36,7 @@ public class SGTestTestsGenerator {
             String testMethodName = testMethod.getName();
             JSONObject test = new JSONObject();
             test.put("name", testClassName + "#" + testMethodName);
+            test.put("arguments", new JSONArray());
             try {
                 scanTestMethodAnnotations(testMethod, test);
             } catch (Exception e) {
@@ -47,13 +49,20 @@ public class SGTestTestsGenerator {
     }
 
     private void scanTestMethodAnnotations(Method m, JSONObject test) throws InvocationTargetException, IllegalAccessException {
-        List<String> annotationsString = new ArrayList<String>();
-        int i = 0;
+        Map<String,String> annotationsString = new HashMap<String,String>();
         for (Annotation a : m.getDeclaredAnnotations()){
-            annotationsString.add(a.toString());
+            Method[] declaredMethods = a.annotationType().getDeclaredMethods();
+            for(Method declaredMethod : declaredMethods){
+                try {
+                    Object value = declaredMethod.invoke(a);
+                    String toPut = annotationValueToString(value);
+                    annotationsString.put(a.annotationType().getName() + "." + declaredMethod.getName(), toPut);
+                }catch (Exception e){
+                    e.printStackTrace();
+                    return;
+                }
+            }
         }
-        if(i == 0)
-            System.out.println(annotationsString);
 
         test.put("annotations", annotationsString);
     }
