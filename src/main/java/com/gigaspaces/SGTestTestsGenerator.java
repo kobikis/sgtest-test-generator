@@ -36,7 +36,11 @@ public class SGTestTestsGenerator {
             String testMethodName = testMethod.getName();
             JSONObject test = new JSONObject();
             test.put("name", testClassName + "#" + testMethodName);
-            test.put("arguments", new JSONArray());
+
+            List<String> testPermutations = new ArrayList<String>();
+            testPermutations.add(testClassName.replace(".","/") + "#" + testMethodName);
+            test.put("arguments", testPermutations);
+
             try {
                 scanTestMethodAnnotations(testMethod, test);
             } catch (Exception e) {
