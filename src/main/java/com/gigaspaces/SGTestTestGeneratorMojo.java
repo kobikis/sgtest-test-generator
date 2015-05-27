@@ -30,7 +30,7 @@ import java.util.*;
 @Mojo(name = "tests", defaultPhase = LifecyclePhase.TEST, threadSafe = true, requiresDependencyResolution = ResolutionScope.TEST)
 public class SGTestTestGeneratorMojo extends AbstractMojo {
 
-    @Parameter(defaultValue = "${project.build.directory}/sgtest-metadata.json")
+    @Parameter(defaultValue = "${project.build.outputDirectory}/sgtest-metadata.json")
     private File jsonTestFile;
 
     @Parameter(defaultValue = "${project.build.sourceDirectory}")
