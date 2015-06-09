@@ -47,7 +47,7 @@ public class SGTestTestGeneratorMojo extends AbstractMojo {
 
     public void execute() throws MojoExecutionException {
         try {
-            getLog().info("Generating TGRID metadata from source directory: " + sourcesDirectory);
+            getLog().info("Generating SGTest metadata from source directory: " + sourcesDirectory);
 
             Classpath classpath = generateTestClasspath();
             ClassLoader cl = classpath.createClassLoader();
@@ -69,8 +69,8 @@ public class SGTestTestGeneratorMojo extends AbstractMojo {
             @SuppressWarnings("unchecked") Constructor constructor = permGenClass.getConstructor(Set.class);
             Object generator = constructor.newInstance(methods);
 
-            scanPermutations(generator);
-            writePermutationsToFile(generator);
+            scanTestMethods(generator);
+            writeTestMethodsToFile(generator);
         }
         catch (MojoExecutionException e) {
             e.printStackTrace();
@@ -82,11 +82,11 @@ public class SGTestTestGeneratorMojo extends AbstractMojo {
         }
     }
 
-    private void writePermutationsToFile(Object permGen) throws InvocationTargetException, IllegalAccessException, NoSuchMethodException {
+    private void writeTestMethodsToFile(Object permGen) throws InvocationTargetException, IllegalAccessException, NoSuchMethodException {
         permGen.getClass().getMethod("writeTestsToFile", File.class).invoke(permGen, jsonTestFile);
     }
 
-    private void scanPermutations(Object permGen) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+    private void scanTestMethods(Object permGen) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
         permGen.getClass().getMethod("scanMethods").invoke(permGen);
     }
 
